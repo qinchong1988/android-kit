@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.bmbstack.kit.androidkit.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:text="umeng第三方登录和分享"/>
+
+    <Button
+        android:text="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text" />
+
+    <Button
+        android:text="music"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/music" />
+
+    <Button
+        android:text="video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/video" />
+
+    <Button
+        android:text="login_sina"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_sina" />
+
+    <Button
+        android:text="login_qq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_qq" />
+
+    <Button
+        android:text="login_weixin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_weixin" />
+</LinearLayout>
+
