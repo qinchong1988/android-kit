@@ -1,4 +1,4 @@
-package com.bmbstack.kit.androidkit;
+package com.bmbstack.kit.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

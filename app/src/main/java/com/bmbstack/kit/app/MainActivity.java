@@ -1,4 +1,4 @@
-package com.bmbstack.kit.androidkit;
+package com.bmbstack.kit.app;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.bmbstack.kit.umeng.ShareCallback;
 import com.bmbstack.kit.umeng.SinaInfo;
 import com.bmbstack.kit.umeng.UmengUtils;
 import com.bmbstack.kit.umeng.WeixinInfo;
+import com.bmbstack.kit.util.ChannelUtils;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import butterknife.Bind;
@@ -36,12 +37,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        UmengUtils.init(getApplicationContext(), "http://sns.whalecloud.com/sina2/callback", true,
-                SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN_CIRCLE);
-        UmengUtils.setKeySecretWeixin("wx29e69e59e1acc297", "03aa889be7d1ca6c90144299b9f86c92");
-        UmengUtils.setKeySecretSina("3255824485", "303b08e2313912a4311fdcc6ab42156a");
-        UmengUtils.setKeySecretQQ("1104927660", "ZFNJSToh3SSBbtYh");
+
+        // Umeng设置
+        String umengChannelId = ChannelUtils.getChannel(this);
+        UmengUtils.init(getApplicationContext(),
+                umengChannelId, true,
+                SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
+                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE);
+        UmengUtils.setKeySecretWeixin("wx70dd76d9bc92354e", "8b6b66781eb561a29ff73e39817e7d26");
+        UmengUtils.setKeySecretQQ("1106036220", "FFxH3KPMjVwAl7Y1");
+
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        UmengUtils.analysisOnPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UmengUtils.analysisOnResume(this);
     }
 
     public void toast(String msg) {

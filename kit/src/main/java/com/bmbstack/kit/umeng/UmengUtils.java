@@ -24,16 +24,18 @@ public class UmengUtils {
     private static Context context;
     private static UMShareAPI umShareAPI;
     private static SHARE_MEDIA[] shareMedias ;//SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE
-    public static void init(Context ctx, String sinaCallbackUrl, boolean degbug, SHARE_MEDIA... shareMediaList){
+    public static void init(Context ctx, String channelId, boolean degbug, SHARE_MEDIA... shareMediaList){
         context = ctx;
-        Config.REDIRECT_URL = sinaCallbackUrl;//http://sns.whalecloud.com/sina2/callback
+        Config.REDIRECT_URL = "http://sns.whalecloud.com/sina2/callback";//http://sns.whalecloud.com/sina2/callback
         shareMedias = shareMediaList;
         Config.isJumptoAppStore = true;
         Config.DEBUG = degbug;
-        umShareAPI =  UMShareAPI.get(ctx);
         //对应平台没有安装的时候跳转转到应用商店下载,其中qq 微信会跳转到下载界面进行下载，其他应用会跳到应用商店进行下载
         //友盟统计
-        MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType. E_UM_NORMAL);
+        MobclickAgent.UMAnalyticsConfig umengConfig = new MobclickAgent.UMAnalyticsConfig(ctx, "", channelId, MobclickAgent.EScenarioType. E_UM_NORMAL);
+        MobclickAgent.startWithConfigure(umengConfig);
+
+        umShareAPI =  UMShareAPI.get(ctx);
     }
 
     //==============================设置==========================================
@@ -123,21 +125,17 @@ public class UmengUtils {
                 info.refreshtoken = map.get("refreshtoken");
                 info.uid = map.get("uid");
 
-
-
                 callback.onComplete(i,info);
             }
 
             @Override
             public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
                 callback.onError(i,throwable);
-
             }
 
             @Override
             public void onCancel(SHARE_MEDIA share_media, int i) {
                 callback.onCancel(i);
-
             }
         });
     }
@@ -213,7 +211,6 @@ public class UmengUtils {
                             media = UMPlatformData.UMedia.TENCENT_QZONE;
                         }
 
-
                         UMPlatformData platform = new UMPlatformData(media, uid);
 
                         MobclickAgent.onSocialEvent(context, platform);
@@ -223,16 +220,13 @@ public class UmengUtils {
                     @Override
                     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
                         callback.onError(share_media,throwable);
-
                     }
 
                     @Override
                     public void onCancel(SHARE_MEDIA share_media) {
                         callback.onCancel(share_media);
-
                     }
                 })
                 .open();
     }
-
 }

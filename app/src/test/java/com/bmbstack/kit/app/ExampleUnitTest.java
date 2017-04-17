@@ -1,4 +1,4 @@
-package com.bmbstack.kit.androidkit;
+package com.bmbstack.kit.app;
 
 import org.junit.Test;
 
