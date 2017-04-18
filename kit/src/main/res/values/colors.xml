@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="colorPrimary">#FF4081</color>
-  <color name="colorPrimary_dark">#303F9F</color>
+  <color name="colorPrimaryDark">#D22D66</color>
   <color name="colorAccent">#FF4081</color>
   <!-- 定义一些常用的颜色值-->
   <color name="load_error">#7b7b7b</color>

@@ -22,8 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
-
 public class BaseApplication extends Application {
 
   private static BaseApplication sInstance = null;
@@ -53,9 +51,6 @@ public class BaseApplication extends Application {
     LauncherUncaughtExceptionHandler launcherUncaughtExceptionHandler =
         new LauncherUncaughtExceptionHandler();
     Thread.setDefaultUncaughtExceptionHandler(launcherUncaughtExceptionHandler);
-
-    // Slide back
-    BGASwipeBackManager.getInstance().init(this);
   }
 
   private static class LauncherUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {

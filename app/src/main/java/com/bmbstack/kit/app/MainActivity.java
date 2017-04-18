@@ -16,13 +16,14 @@ import com.bmbstack.kit.umeng.SinaInfo;
 import com.bmbstack.kit.umeng.UmengUtils;
 import com.bmbstack.kit.umeng.WeixinInfo;
 import com.bmbstack.kit.util.ChannelUtils;
+import com.r0adkll.slidr.Slidr;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Bind(R.id.text)
     Button text;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick({R.id.text, R.id.music, R.id.video, R.id.login_qq, R.id.login_weixin})
+    @OnClick({R.id.text, R.id.music, R.id.video, R.id.login_qq, R.id.login_weixin, R.id.http_api})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.text:
@@ -171,6 +172,9 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+                break;
+            case R.id.http_api:
+                HttpActivity.launch(MainActivity.this);
                 break;
         }
     }
