@@ -40,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Umeng设置
         String umengChannelId = ChannelUtils.getChannel(this);
+        UmengUtils.setKeySecretWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+        UmengUtils.setKeySecretQQ("100424468", "c7394704798a158208a74ab60104f0ba");
         UmengUtils.init(getApplicationContext(),
                 umengChannelId, true,
                 SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE);
-        UmengUtils.setKeySecretWeixin("wx70dd76d9bc92354e", "8b6b66781eb561a29ff73e39817e7d26");
-        UmengUtils.setKeySecretQQ("1106036220", "FFxH3KPMjVwAl7Y1");
 
         ButterKnife.bind(this);
     }
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick({R.id.text, R.id.music, R.id.video, R.id.login_qq, R.id.login_sina, R.id.login_weixin})
+    @OnClick({R.id.text, R.id.music, R.id.video, R.id.login_qq, R.id.login_weixin})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.text:
@@ -138,25 +138,6 @@ public class MainActivity extends AppCompatActivity {
                 UmengUtils.loginByQQ(this, new AuthCallback<QQInfo>() {
                     @Override
                     public void onComplete(int var2, QQInfo info) {
-                        Log.e("dd", info.toString());
-
-                    }
-
-                    @Override
-                    public void onError(int var2, Throwable var3) {
-
-                    }
-
-                    @Override
-                    public void onCancel(int var2) {
-
-                    }
-                });
-                break;
-            case R.id.login_sina:
-                UmengUtils.loginBySina(this, new AuthCallback<SinaInfo>() {
-                    @Override
-                    public void onComplete(int var2, SinaInfo info) {
                         Log.e("dd", info.toString());
 
                     }

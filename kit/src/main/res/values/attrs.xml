@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--AdvancedPagerSlidingTabStrip-->
+  <declare-styleable name="AdvancedPagerSlidingTabStrip">
+    <attr format="color" name="apTabIndicatorColor"/>
+    <attr format="color" name="apTabUnderlineColor"/>
+    <attr format="color" name="apTabDividerColor"/>
+    <attr format="color" name="apTabTextSelectColor"/>
+    <attr format="dimension" name="apTabIndicatorHeight"/>
+    <attr format="dimension" name="apTabUnderlineHeight"/>
+    <attr format="dimension" name="apTabDividerPadding"/>
+    <attr format="dimension" name="apTabPaddingLeftRight"/>
+    <attr format="dimension" name="apTabPaddingTopBottom"/>
+    <attr format="dimension" name="apTabScrollOffset"/>
+    <attr format="reference" name="apTabBackground"/>
+    <attr format="boolean" name="apTabShouldExpand"/>
+    <attr format="boolean" name="apTabTextAllCaps"/>
+    <attr format="enum" name="apTabDrawMode">
+      <enum name="normal" value="0"/>
+      <enum name="text" value="1"/>
+    </attr>
+  </declare-styleable>
+</resources>

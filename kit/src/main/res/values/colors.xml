@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#FF4081</color>
+  <color name="colorPrimary_dark">#303F9F</color>
+  <color name="colorAccent">#FF4081</color>
+  <!-- 定义一些常用的颜色值-->
+  <color name="load_error">#7b7b7b</color>
+  <color name="transparent">#00000000</color>
+  <color name="black">#000</color>
+  <color name="black_10">#19000000</color>
+  <color name="black_60">#66000000</color>
+  <color name="black_20">#10000000</color>
+  <color name="black_30">#4C000000</color>
+  <color name="black_50">#7F000000</color>
+  <color name="black_80">#cc000000</color>
+  <color name="red">#E43F3E</color>
+  <color name="white">#FFF</color>
+
+</resources>
