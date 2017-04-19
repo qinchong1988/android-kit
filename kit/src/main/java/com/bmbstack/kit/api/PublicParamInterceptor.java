@@ -8,12 +8,12 @@ import okhttp3.Response;
 
 class PublicParamInterceptor implements Interceptor {
 
-  private API.JWTGet jwtGet;
+  private BmbAPI.JWTGet jwtGet;
 
   PublicParamInterceptor() {
   }
 
-  void setApiJwtGet(API.JWTGet jwt) {
+  void setApiJwtGet(BmbAPI.JWTGet jwt) {
     jwtGet = jwt;
   }
 

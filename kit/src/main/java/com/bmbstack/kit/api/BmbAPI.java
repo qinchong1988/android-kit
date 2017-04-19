@@ -11,9 +11,9 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-public class API {
+public class BmbAPI {
 
-  private API() {
+  private BmbAPI() {
   }
 
   public static void rx(Observable<?> observable, Observer observer) {

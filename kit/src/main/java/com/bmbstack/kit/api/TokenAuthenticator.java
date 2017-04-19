@@ -14,9 +14,9 @@ import okhttp3.Route;
  */
 public class TokenAuthenticator implements Authenticator {
 
-  private API.JWTGet jwt;
+  private BmbAPI.JWTGet jwt;
 
-  public TokenAuthenticator(API.JWTGet jwt) {
+  public TokenAuthenticator(BmbAPI.JWTGet jwt) {
     this.jwt = jwt;
   }
 

@@ -8,6 +8,7 @@ import android.os.Debug;
 import android.os.Environment;
 
 import com.bmbstack.kit.log.Logger;
+import com.bmbstack.kit.util.Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -51,6 +52,8 @@ public class BaseApplication extends Application {
     LauncherUncaughtExceptionHandler launcherUncaughtExceptionHandler =
         new LauncherUncaughtExceptionHandler();
     Thread.setDefaultUncaughtExceptionHandler(launcherUncaughtExceptionHandler);
+
+    Utils.init(this);
   }
 
   private static class LauncherUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
