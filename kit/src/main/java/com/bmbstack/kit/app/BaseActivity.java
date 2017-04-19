@@ -30,7 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BmbPrese
     setStatusBar();
   }
 
-  protected void setStatusBar() {
+  public void setStatusBar() {
     Logger.v("onPost Create setStatusBar setColorNoTranslucent");
     StatusBarUtil.setColorNoTranslucent(this, getStatusBarColor());
   }
