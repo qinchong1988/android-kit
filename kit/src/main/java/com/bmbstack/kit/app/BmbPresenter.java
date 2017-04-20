@@ -9,61 +9,61 @@ import com.bmbstack.kit.widget.LoadingView;
 
 public interface BmbPresenter {
 
-  void setContentViewGroup(ViewGroup viewGroup);
+    void setContentViewGroup(ViewGroup viewGroup);
 
-  void setLoadingViewClickable(boolean clickable);
+    void setLoadingViewClickable(boolean clickable);
 
-  void setLoadingErrorRelaLayout();
+    void setLoadingErrorRelaLayout();
 
-  void setLoadingErrorRelaLayout(int anchor);
+    void setLoadingErrorRelaLayout(int anchor);
 
-  void setLoadingViewLayoutParams(ViewGroup.LayoutParams params);
+    void setLoadingViewLayoutParams(ViewGroup.LayoutParams params);
 
-  void setErrorViewLayoutParams(ViewGroup.LayoutParams params);
+    void setErrorViewLayoutParams(ViewGroup.LayoutParams params);
 
-  boolean isValid();
+    boolean isValid();
 
-  void showErrorView(CharSequence errorString, ErrorView.Style style);
+    void showErrorView(CharSequence errorString, ErrorView.Style style);
 
-  void showErrorView(CharSequence errorString, View hideView, ErrorView.Style style);
+    void showErrorView(CharSequence errorString, View hideView, ErrorView.Style style);
 
-  void showErrorView(CharSequence errorString, boolean animate, View hideView,
-                     ErrorView.Style style);
+    void showErrorView(CharSequence errorString, boolean animate, View hideView,
+                       ErrorView.Style style);
 
-  void hideErrorView();
+    void hideErrorView();
 
-  void hideErrorView(View showView);
+    void hideErrorView(View showView);
 
-  void hideErrorView(boolean animate, View showView);
+    void hideErrorView(boolean animate, View showView);
 
-  void onClickOfErrorView(View v);
+    void onClickOfErrorView(View v);
 
-  boolean isLoading();
+    boolean isLoading();
 
-  void setIsLoading(boolean isLoading);
+    void setIsLoading(boolean isLoading);
 
-  void showLoadingView();
+    void showLoadingView();
 
-  void showLoadingView(View hideView);
+    void showLoadingView(View hideView);
 
-  void showLoadingView(String msg, View hideView);
+    void showLoadingView(String msg, View hideView);
 
-  void showLoadingView(String msg, boolean animate, View hideView);
+    void showLoadingView(String msg, boolean animate, View hideView);
 
-  void hideLoadingView();
+    void hideLoadingView();
 
-  void hideLoadingView(View showView);
+    void hideLoadingView(View showView);
 
-  void hideLoadingView(boolean animate, View showView);
+    void hideLoadingView(boolean animate, View showView);
 
-  LoadingView getLoadingView();
+    LoadingView getLoadingView();
 
-  ErrorView getErrorView();
+    ErrorView getErrorView();
 
-  Activity getActivityContext();
+    Activity getActivityContext();
 
-  void showEmptyView();
+    void showEmptyView();
 
-  void showErrorView(Throwable e);
+    void showErrorView(Throwable e);
 
 }

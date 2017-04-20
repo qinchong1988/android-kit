@@ -18,192 +18,196 @@ import java.lang.reflect.Field;
 
 public abstract class BaseFragment extends Fragment implements BmbPresenter {
 
-  FragPresenter mDecorate = new FragPresenter(this);
+    FragPresenter mDecorate = new FragPresenter(this);
 
-  public boolean onBackPressed() {
-    return false;
-  }
-
-  public boolean isValid() {
-    return mDecorate.isValid();
-  }
-
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    if (mDecorate.getContentView() != null) {
-      if (mDecorate.getContentView().getParent() != null) {
-        ((ViewGroup) mDecorate.getContentView().getParent()).removeView(mDecorate.getContentView());
-      }
-    } else {
-      setContentViewGroup((ViewGroup) inflater.inflate(getLayouId(), container, false));
-      initCreateView(mDecorate.getContentView(), savedInstanceState);
+    public boolean onBackPressed() {
+        return false;
     }
-    return mDecorate.getContentView();
-  }
 
-  public void setContentViewGroup(ViewGroup viewGroup) {
-    mDecorate.setContentViewGroup(viewGroup);
-  }
-
-  protected abstract void initCreateView(ViewGroup viewGroup, Bundle savedInstanceState);
-
-  protected abstract int getLayouId();
-
-  public BaseActivity getActivityContext() {
-    return (BaseActivity) getActivity();
-  }
-
-  @Override public void startActivity(Intent intent) {
-    try {
-      super.startActivity(intent);
-    } catch (Exception e) {
-      e.printStackTrace();
-      FragmentActivity activity = getActivity();
-      if (activity != null) {
-        activity.startActivityIfNeeded(intent, -1);
-      }
+    public boolean isValid() {
+        return mDecorate.isValid();
     }
-  }
 
-  @Override public void startActivityForResult(Intent intent, int requestCode) {
-    try {
-      super.startActivityForResult(intent, requestCode);
-    } catch (Exception e) {
-      e.printStackTrace();
-      FragmentActivity activity = getActivity();
-      if (activity != null) {
-        activity.startActivityIfNeeded(intent, requestCode);
-      }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        if (mDecorate.getContentView() != null) {
+            if (mDecorate.getContentView().getParent() != null) {
+                ((ViewGroup) mDecorate.getContentView().getParent()).removeView(mDecorate.getContentView());
+            }
+        } else {
+            setContentViewGroup((ViewGroup) inflater.inflate(getLayouId(), container, false));
+            initCreateView(mDecorate.getContentView(), savedInstanceState);
+        }
+        return mDecorate.getContentView();
     }
-  }
 
-  @Override public void onDetach() {
-    super.onDetach();
-    try {
-      Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-      childFragmentManager.setAccessible(true);
-      childFragmentManager.set(this, null);
-    } catch (Exception e) {
-      e.printStackTrace();
+    public void setContentViewGroup(ViewGroup viewGroup) {
+        mDecorate.setContentViewGroup(viewGroup);
     }
-  }
 
-  public void release() {
-    if (mDecorate.getContentView() != null) {
-      if (mDecorate.getContentView().getParent() != null) {
-        ((ViewGroup) mDecorate.getContentView().getParent()).removeView(mDecorate.getContentView());
-      }
-      mDecorate.getContentView().removeAllViews();
+    protected abstract void initCreateView(ViewGroup viewGroup, Bundle savedInstanceState);
+
+    protected abstract int getLayouId();
+
+    public BaseActivity getActivityContext() {
+        return (BaseActivity) getActivity();
     }
-  }
 
-  public void setLoadingViewClickable(boolean clickable) {
-    mDecorate.setLoadingViewClickable(clickable);
-  }
+    @Override
+    public void startActivity(Intent intent) {
+        try {
+            super.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                activity.startActivityIfNeeded(intent, -1);
+            }
+        }
+    }
 
-  public void setLoadingErrorRelaLayout() {
-    mDecorate.setLoadingErrorRelaLayout(0);
-  }
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        try {
+            super.startActivityForResult(intent, requestCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                activity.startActivityIfNeeded(intent, requestCode);
+            }
+        }
+    }
 
-  public void setLoadingErrorRelaLayout(int anchor) {
-    mDecorate.setLoadingErrorRelaLayout(anchor);
-  }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-  public void setLoadingViewLayoutParams(ViewGroup.LayoutParams params) {
-    mDecorate.setLoadingViewLayoutParams(params);
-  }
+    public void release() {
+        if (mDecorate.getContentView() != null) {
+            if (mDecorate.getContentView().getParent() != null) {
+                ((ViewGroup) mDecorate.getContentView().getParent()).removeView(mDecorate.getContentView());
+            }
+            mDecorate.getContentView().removeAllViews();
+        }
+    }
 
-  public LoadingView getLoadingView() {
-    return mDecorate.getLoadingView();
-  }
+    public void setLoadingViewClickable(boolean clickable) {
+        mDecorate.setLoadingViewClickable(clickable);
+    }
 
-  public boolean isLoading() {
-    return mDecorate.isLoading();
-  }
+    public void setLoadingErrorRelaLayout() {
+        mDecorate.setLoadingErrorRelaLayout(0);
+    }
 
-  public void setIsLoading(boolean isLoading) {
-    mDecorate.setIsLoading(isLoading);
-  }
+    public void setLoadingErrorRelaLayout(int anchor) {
+        mDecorate.setLoadingErrorRelaLayout(anchor);
+    }
 
-  public void showLoadingView() {
-    mDecorate.showLoadingView(null, true, null);
-  }
+    public void setLoadingViewLayoutParams(ViewGroup.LayoutParams params) {
+        mDecorate.setLoadingViewLayoutParams(params);
+    }
 
-  public void showLoadingView(View hideView) {
-    mDecorate.showLoadingView(null, true, hideView);
-  }
+    public LoadingView getLoadingView() {
+        return mDecorate.getLoadingView();
+    }
 
-  public void showLoadingView(String msg, View hideView) {
-    mDecorate.showLoadingView(msg, true, hideView);
-  }
+    public boolean isLoading() {
+        return mDecorate.isLoading();
+    }
 
-  public void showLoadingView(String msg, boolean animate, View hideView) {
-    mDecorate.showLoadingView(msg, animate, hideView);
-  }
+    public void setIsLoading(boolean isLoading) {
+        mDecorate.setIsLoading(isLoading);
+    }
 
-  public void hideLoadingView() {
-    mDecorate.hideLoadingView(true, null);
-  }
+    public void showLoadingView() {
+        mDecorate.showLoadingView(null, true, null);
+    }
 
-  public void hideLoadingView(View showView) {
-    mDecorate.hideLoadingView(true, showView);
-  }
+    public void showLoadingView(View hideView) {
+        mDecorate.showLoadingView(null, true, hideView);
+    }
 
-  public void hideLoadingView(boolean animate, View showView) {
-    mDecorate.hideLoadingView(animate, showView);
-  }
+    public void showLoadingView(String msg, View hideView) {
+        mDecorate.showLoadingView(msg, true, hideView);
+    }
 
-  public void setErrorViewLayoutParams(ViewGroup.LayoutParams params) {
-    mDecorate.setErrorViewLayoutParams(params);
-  }
+    public void showLoadingView(String msg, boolean animate, View hideView) {
+        mDecorate.showLoadingView(msg, animate, hideView);
+    }
 
-  public void onClickOfErrorView(View v) {
-    Logger.v("onClickOfErrorView");
-    // Non't call mDecorate.onClickOfErrorView(), stackOver
-  }
+    public void hideLoadingView() {
+        mDecorate.hideLoadingView(true, null);
+    }
 
-  public ErrorView getErrorView() {
-    return mDecorate.getErrorView();
-  }
+    public void hideLoadingView(View showView) {
+        mDecorate.hideLoadingView(true, showView);
+    }
 
-  public void showErrorView(CharSequence errorString, ErrorView.Style style) {
-    mDecorate.showErrorView(errorString, true, null, style);
-  }
+    public void hideLoadingView(boolean animate, View showView) {
+        mDecorate.hideLoadingView(animate, showView);
+    }
 
-  public void showErrorView(CharSequence errorString, View hideView, ErrorView.Style style) {
-    mDecorate.showErrorView(errorString, true, hideView, style);
-  }
+    public void setErrorViewLayoutParams(ViewGroup.LayoutParams params) {
+        mDecorate.setErrorViewLayoutParams(params);
+    }
 
-  public void showErrorView(CharSequence errorString, boolean animate, View hideView,
-      ErrorView.Style style) {
-    mDecorate.showErrorView(errorString, animate, hideView, style);
-  }
+    public void onClickOfErrorView(View v) {
+        Logger.v("onClickOfErrorView");
+        // Non't call mDecorate.onClickOfErrorView(), stackOver
+    }
 
-  public void hideErrorView() {
-    mDecorate.hideErrorView();
-  }
+    public ErrorView getErrorView() {
+        return mDecorate.getErrorView();
+    }
 
-  public void hideErrorView(View showView) {
-    mDecorate.hideErrorView(showView);
-  }
+    public void showErrorView(CharSequence errorString, ErrorView.Style style) {
+        mDecorate.showErrorView(errorString, true, null, style);
+    }
 
-  public void hideErrorView(boolean animate, View showView) {
-    mDecorate.hideErrorView(animate, showView);
-  }
+    public void showErrorView(CharSequence errorString, View hideView, ErrorView.Style style) {
+        mDecorate.showErrorView(errorString, true, hideView, style);
+    }
 
-  public void onWindowFocusChanged(boolean hasFocus) {
-  }
+    public void showErrorView(CharSequence errorString, boolean animate, View hideView,
+                              ErrorView.Style style) {
+        mDecorate.showErrorView(errorString, animate, hideView, style);
+    }
 
-  public void onNewIntent(Intent intent) {
+    public void hideErrorView() {
+        mDecorate.hideErrorView();
+    }
 
-  }
+    public void hideErrorView(View showView) {
+        mDecorate.hideErrorView(showView);
+    }
 
-  public void showEmptyView() {
-    mDecorate.showEmptyView();
-  }
+    public void hideErrorView(boolean animate, View showView) {
+        mDecorate.hideErrorView(animate, showView);
+    }
 
-  public void showErrorView(Throwable e) {
-    NetError error = ExceptionHandler.getErrorFromException(e);
-    showErrorView(error.errorMsg, error.style);
-  }
+    public void onWindowFocusChanged(boolean hasFocus) {
+    }
+
+    public void onNewIntent(Intent intent) {
+
+    }
+
+    public void showEmptyView() {
+        mDecorate.showEmptyView();
+    }
+
+    public void showErrorView(Throwable e) {
+        NetError error = ExceptionHandler.getErrorFromException(e);
+        showErrorView(error.errorMsg, error.style);
+    }
 }

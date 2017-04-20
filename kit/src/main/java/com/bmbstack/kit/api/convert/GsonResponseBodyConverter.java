@@ -10,20 +10,21 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
 class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
-  private final Gson gson;
-  private final TypeAdapter<T> adapter;
+    private final Gson gson;
+    private final TypeAdapter<T> adapter;
 
-  GsonResponseBodyConverter(Gson gson, TypeAdapter<T> adapter) {
-    this.gson = gson;
-    this.adapter = adapter;
-  }
-
-  @Override public T convert(ResponseBody value) throws IOException {
-    JsonReader jsonReader = gson.newJsonReader(value.charStream());
-    try {
-      return adapter.read(jsonReader);
-    } finally {
-      value.close();
+    GsonResponseBodyConverter(Gson gson, TypeAdapter<T> adapter) {
+        this.gson = gson;
+        this.adapter = adapter;
     }
-  }
+
+    @Override
+    public T convert(ResponseBody value) throws IOException {
+        JsonReader jsonReader = gson.newJsonReader(value.charStream());
+        try {
+            return adapter.read(jsonReader);
+        } finally {
+            value.close();
+        }
+    }
 }

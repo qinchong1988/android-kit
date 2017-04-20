@@ -5,26 +5,29 @@ import android.view.View;
 
 public class ActPresenter extends ActFragPresenter {
 
-  private boolean mDestory = false;
-  BaseActivity mActivity;
+    private boolean mDestory = false;
+    BaseActivity mActivity;
 
-  ActPresenter(BaseActivity activity) {
-    mActivity = activity;
-  }
+    ActPresenter(BaseActivity activity) {
+        mActivity = activity;
+    }
 
-  @Override public boolean isValid() {
-    return !mDestory && !getActivityContext().isFinishing();
-  }
+    @Override
+    public boolean isValid() {
+        return !mDestory && !getActivityContext().isFinishing();
+    }
 
-  @Override public void onClickOfErrorView(View v) {
-    mActivity.onClickOfErrorView(v);
-  }
+    @Override
+    public void onClickOfErrorView(View v) {
+        mActivity.onClickOfErrorView(v);
+    }
 
-  @Override public FragmentActivity getActivityContext() {
-    return mActivity;
-  }
+    @Override
+    public FragmentActivity getActivityContext() {
+        return mActivity;
+    }
 
-  public void onDestory() {
-    mDestory = true;
-  }
+    public void onDestory() {
+        mDestory = true;
+    }
 }
