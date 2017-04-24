@@ -146,7 +146,7 @@ public class HttpActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //API test
-                API.INST.weightToday(APIHandler.createObserver(HttpActivity.this, true, new APIHandler.APIObserver<WeightToday>() {
+                API.INST.weightToday(APIHandler.createObserver(HttpActivity.this, false, new APIHandler.APIObserver<WeightToday>() {
                     @Override
                     public void onSuccess(WeightToday value) {
                         tvGetWeight.setText(String.valueOf(value.data.weight));

@@ -8,7 +8,7 @@ import sys
 strPath = os.path.abspath(os.curdir)
 app_name = os.path.split(os.path.dirname(strPath))[1]
 print("app_name: " + app_name)
-source_release_apk = app_name + '-Knowbox-release.apk'
+source_release_apk = app_name + '-istormcity-release.apk'
 print("source_release_apk: " + source_release_apk)
 
 # 空文件 便于写入此空文件到apk包中作为channel文件
