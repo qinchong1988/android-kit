@@ -30,15 +30,14 @@ public class APIHandler {
         HTTP_INTERCEPTOR.put(code, interceptor);
     }
 
-    public interface ApiObserver<T> {
+    public interface APIObserver<T> {
 
         void onSuccess(T value);
 
         void onComplete();
     }
 
-    public static <T> Observer<T> createObserver(final BmbPresenter bmbPresenter,
-                                                 final boolean showErrorView, final ApiObserver<T> apiObserver) {
+    public static <T> Observer<T> createObserver(final BmbPresenter bmbPresenter, final boolean showErrorView, final APIObserver<T> apiObserver) {
         return new Observer<T>() {
 
             @Override

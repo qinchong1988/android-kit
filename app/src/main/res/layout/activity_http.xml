@@ -22,10 +22,34 @@
         android:text="http接口测试"/>
 
     <Button
-        android:text="text"
+        android:id="@+id/btHome"
+        android:text="home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text" />
+         />
+    <TextView
+        android:id="@+id/tvHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:text="空"/>
+
+    <Button
+        android:id="@+id/btCreateUser"
+        android:text="creat_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/tvCreateUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:text="空"/>
 
 </LinearLayout>
 

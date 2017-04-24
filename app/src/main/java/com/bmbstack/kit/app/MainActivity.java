@@ -19,19 +19,19 @@ import com.bmbstack.kit.util.ChannelUtils;
 import com.r0adkll.slidr.Slidr;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.text)
+    @BindView(R.id.text)
     Button text;
-    @Bind(R.id.music)
+    @BindView(R.id.music)
     Button music;
-    @Bind(R.id.video)
+    @BindView(R.id.video)
     Button video;
-    @Bind(R.id.activity_main)
+    @BindView(R.id.activity_main)
     LinearLayout activityMain;
 
     @Override
