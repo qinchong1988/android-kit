@@ -40,25 +40,25 @@ public class BmbAPI {
     public static class Builder<T> {
         String baseUrl;
         Class<T> api;
-        OkHttpClient.Builder builder;
+        OkHttpClient.Builder clientBuilder;
         PublicParamInterceptor publicParamInterceptor;
 
         public Builder(String baseUrl, Class<T> api) {
             this.baseUrl = baseUrl;
             this.api = api;
-            builder = OkHttpHelper.addComm();
+            clientBuilder = OkHttpHelper.addComm();
             publicParamInterceptor = new PublicParamInterceptor();
         }
 
         public Builder addInterceptor(Interceptor interceptor) {
-            builder.addInterceptor(interceptor);
+            clientBuilder.addInterceptor(interceptor);
             return this;
         }
 
         public Builder useJWT(JWTGet jwt) {
             publicParamInterceptor.setApiJwtGet(jwt);
-            builder.addInterceptor(publicParamInterceptor);
-            builder.authenticator(new TokenAuthenticator(jwt));
+            clientBuilder.addInterceptor(publicParamInterceptor);
+            clientBuilder.authenticator(new TokenAuthenticator(jwt));
             return this;
         }
 
@@ -66,7 +66,7 @@ public class BmbAPI {
             return new Retrofit.Builder().baseUrl(baseUrl)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(builder.build())
+                    .client(clientBuilder.build())
                     .build()
                     .create(api);
         }

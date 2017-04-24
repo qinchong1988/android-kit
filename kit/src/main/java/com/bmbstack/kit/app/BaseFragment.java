@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bmbstack.kit.api.ExceptionHandler;
+import com.bmbstack.kit.api.APIHandler;
 import com.bmbstack.kit.api.NetError;
 import com.bmbstack.kit.log.Logger;
 import com.bmbstack.kit.widget.ErrorView;
@@ -207,7 +207,7 @@ public abstract class BaseFragment extends Fragment implements BmbPresenter {
     }
 
     public void showErrorView(Throwable e) {
-        NetError error = ExceptionHandler.getErrorFromException(e);
+        NetError error = APIHandler.getErrorFromException(e);
         showErrorView(error.errorMsg, error.style);
     }
 }

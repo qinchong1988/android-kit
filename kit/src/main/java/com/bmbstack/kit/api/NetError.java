@@ -5,7 +5,7 @@ import com.bmbstack.kit.widget.ErrorView;
 public class NetError {
     public int errno = -1000;
     public String errorMsg;
-    public ErrorView.Style style = ErrorView.Style.ERROR_NETWOR;
+    public ErrorView.Style style = ErrorView.Style.ERROR_NETWORK;
     public boolean needReload;
 
     public static NetError createError(int errno, String msg) {

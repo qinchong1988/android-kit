@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.bmbstack.kit.R;
-import com.bmbstack.kit.api.ExceptionHandler;
+import com.bmbstack.kit.api.APIHandler;
 import com.bmbstack.kit.api.NetError;
 import com.bmbstack.kit.log.Logger;
 import com.bmbstack.kit.widget.ErrorView;
@@ -219,7 +219,7 @@ public abstract class ActFragPresenter implements BmbPresenter {
     }
 
     public void showErrorView(Throwable e) {
-        NetError error = ExceptionHandler.getErrorFromException(e);
+        NetError error = APIHandler.getErrorFromException(e);
         showErrorView(error.errorMsg, error.style);
     }
 }

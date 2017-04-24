@@ -1,11 +1,19 @@
 package com.bmbstack.kit.api.convert;
 
+import com.bmbstack.kit.api.APIException;
+import com.bmbstack.kit.api.BaseResponse;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 
+import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
@@ -20,7 +28,19 @@ class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
 
     @Override
     public T convert(ResponseBody value) throws IOException {
-        JsonReader jsonReader = gson.newJsonReader(value.charStream());
+        String response = value.string();
+        BaseResponse baseResponse = gson.fromJson(response, BaseResponse.class);
+        if (!baseResponse.isValid()) { // code不等于成功码时
+            value.close();
+            throw new APIException(baseResponse.code, baseResponse.msg);
+        }
+
+        MediaType contentType = value.contentType();
+        Charset charset = contentType != null ? contentType.charset(Charset.forName("UTF-8")) : Charset.forName("UTF-8");
+        InputStream inputStream = new ByteArrayInputStream(response.getBytes());
+        Reader reader = new InputStreamReader(inputStream, charset);
+        JsonReader jsonReader = gson.newJsonReader(reader);
+
         try {
             return adapter.read(jsonReader);
         } finally {

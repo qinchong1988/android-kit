@@ -39,7 +39,7 @@ public class ErrorView extends RelativeLayout
     }
 
     public enum Style {
-        ERROR_NETWOR, EMPTY
+        ERROR_NETWORK, EMPTY
     }
 
     public void show(CharSequence errorString, Style style) {
@@ -69,7 +69,7 @@ public class ErrorView extends RelativeLayout
             contentContainer.setVisibility(View.GONE);
         }
         switch (style) {
-            case ERROR_NETWOR:
+            case ERROR_NETWORK:
                 break;
             case EMPTY:
                 break;
