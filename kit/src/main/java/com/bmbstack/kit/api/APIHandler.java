@@ -65,7 +65,7 @@ public class APIHandler {
                 bmbPresenter.hideLoadingView();
 
                 NetError error = getErrorFromException(e);
-                HttpInterceptor interceptor = HTTP_INTERCEPTOR.get(error.errno);
+                HttpInterceptor interceptor = HTTP_INTERCEPTOR.get(error.errorCode);
                 if (interceptor != null) {
                     if (interceptor.intercept()) {
                         return;
@@ -108,7 +108,9 @@ public class APIHandler {
             int resId = StatusCode.mHttpStatusMessageMap.get(exception.code());
             error.errorMsg = BaseApplication.instance().getString(resId);
         } else if (e instanceof APIException) {
-            error.errorMsg = e.getMessage();
+            APIException exception = (APIException) e;
+            error.errorCode = exception.getCode();
+            error.errorMsg = exception.getMsg();
         } else {
             error.errorMsg = BaseApplication.instance().getString(R.string.status_unknow_error);
         }

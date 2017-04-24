@@ -28,4 +28,8 @@ public enum API {
     public void createUser(CreateUser.Req req, Observer<CreateUser.Resp> observer) {
         BmbAPI.rx(mAPIService.createUser(req), observer);
     }
+
+    public void weightToday(Observer<WeightToday> observer) {
+        BmbAPI.rx(mAPIService.weightToday(), observer);
+    }
 }

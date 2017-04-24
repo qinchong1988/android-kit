@@ -51,5 +51,20 @@
         android:textStyle="bold"
         android:text="空"/>
 
+    <Button
+        android:id="@+id/btGetWeight"
+        android:text="get_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/tvGetWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:text="空"/>
+
 </LinearLayout>
 

@@ -9,9 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bmbstack.kit.api.APIHandler;
+import com.bmbstack.kit.app.account.AccountMgr;
 import com.bmbstack.kit.app.api.API;
 import com.bmbstack.kit.app.api.CreateUser;
 import com.bmbstack.kit.app.api.Home;
+import com.bmbstack.kit.app.api.WeightToday;
+import com.bmbstack.kit.app.storage.CommonTraySp;
 import com.bmbstack.kit.util.SizeUtils;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
@@ -36,6 +39,11 @@ public class HttpActivity extends BaseActivity {
     Button btCreateUser;
     @BindView(R.id.tvCreateUser)
     TextView tvCreateUser;
+
+    @BindView(R.id.btGetWeight)
+    Button btGetWeight;
+    @BindView(R.id.tvGetWeight)
+    TextView tvGetWeight;
 
     public static void launch(Activity activity) {
         activity.startActivity(new Intent(activity, HttpActivity.class));
@@ -107,7 +115,7 @@ public class HttpActivity extends BaseActivity {
 
             @Override
             public void onClick(View view) {
-                CreateUser.Req req = new CreateUser.Req();
+                final CreateUser.Req req = new CreateUser.Req();
                 req.accountType = "weixin";
                 req.openID = "olDvtjkAgHqEuAKxCyXuSseSLE-w";
                 req.nickname = "王明";
@@ -119,6 +127,29 @@ public class HttpActivity extends BaseActivity {
                     @Override
                     public void onSuccess(CreateUser.Resp value) {
                         tvCreateUser.setText(value.data.token);
+                        if (value.isValid()) {
+                            value.data.user.setToken(value.data.token);
+                            AccountMgr.getInstance().saveUser(value.data.user);
+                            CommonTraySp.saveThirdLoginInfo(req);
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                }));
+            }
+        });
+
+        btGetWeight.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                //API test
+                API.INST.weightToday(APIHandler.createObserver(HttpActivity.this, true, new APIHandler.APIObserver<WeightToday>() {
+                    @Override
+                    public void onSuccess(WeightToday value) {
+                        tvGetWeight.setText(String.valueOf(value.data.weight));
                     }
 
                     @Override

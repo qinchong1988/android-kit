@@ -20,7 +20,7 @@ public class APIException extends RuntimeException {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ApiException{");
+        final StringBuilder sb = new StringBuilder("APIException{");
         sb.append("code=").append(this.code);
         sb.append(", msg=").append(this.msg);
         sb.append('}');
