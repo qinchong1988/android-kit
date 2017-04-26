@@ -1,5 +1,7 @@
 package com.bmbstack.kit.api;
 
+import com.bmbstack.kit.R;
+import com.bmbstack.kit.app.BaseApplication;
 import com.bmbstack.kit.proguard.IKeepClass;
 
 public class BaseResponse implements IKeepClass {
@@ -7,16 +9,16 @@ public class BaseResponse implements IKeepClass {
     public int code = -100;
     public String msg;
 
-    public static final int ERRNO_SUCCESS = 20000;
+    public static final int CODE_SUCCESS = BaseApplication.instance().getResources().getInteger(R.integer.code_success);
 
-    public static final int ERRNO_TOKEN_ERROR = 3;
+    public static final int CODE_ERROR_TOKEN = 3;
 
     public boolean isValid() {
-        return code == ERRNO_SUCCESS;
+        return code == CODE_SUCCESS;
     }
 
     public boolean reLogin() {
-        return code == ERRNO_TOKEN_ERROR;
+        return code == CODE_ERROR_TOKEN;
     }
 
     @Override
