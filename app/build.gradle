@@ -1,14 +1,4 @@
 apply plugin: 'com.android.application'
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
-    }
-}
-
 apply plugin: 'org.greenrobot.greendao'
 
 android {
@@ -21,10 +11,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-
-    greendao {
-        schemaVersion 1
     }
 
     signingConfigs {
@@ -55,6 +41,10 @@ android {
     productFlavors {
         istormcity
     }
+}
+
+greendao {
+    schemaVersion 1
 }
 
 dependencies {

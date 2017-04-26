@@ -24,6 +24,8 @@ import com.r0adkll.slidr.model.SlidrPosition;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bmbstack.kit.api.APIHandler.createObserver;
+
 /**
  * Created by wangming on 4/18/17.
  */
@@ -98,7 +100,7 @@ public class HttpActivity extends BaseActivity {
             public void onClick(View view) {
 
                 //API test
-                API.INST.home(APIHandler.createObserver(HttpActivity.this, true, new APIHandler.OnResultCallback<Home.Resp>() {
+                API.INST.home(createObserver(HttpActivity.this, true, new APIHandler.OnResultCallback<Home.Resp>() {
                     @Override
                     public void onSuccess(Home.Resp value) {
                         tvHome.setText(value.data.title);
@@ -123,7 +125,7 @@ public class HttpActivity extends BaseActivity {
                 req.sex = 1;
                 req.city = "北京市";
                 //API test
-                API.INST.createUser(req, APIHandler.createObserver(HttpActivity.this, true, new APIHandler.OnResultCallback<CreateUser.Resp>() {
+                API.INST.createUser(req, createObserver(HttpActivity.this, true, new APIHandler.OnResultCallback<CreateUser.Resp>() {
                     @Override
                     public void onSuccess(CreateUser.Resp value) {
                         tvCreateUser.setText(value.data.token);
@@ -146,7 +148,8 @@ public class HttpActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //API test
-                API.INST.weightToday(APIHandler.createObserver(HttpActivity.this, false, new APIHandler.OnResultCallback<WeightToday>() {
+                int lastID = 100;
+                API.INST.weightToday(lastID, true, APIHandler.createObserver(HttpActivity.this, false, new APIHandler.OnResultCallback<WeightToday>() {
                     @Override
                     public void onSuccess(WeightToday value) {
                         tvGetWeight.setText(String.valueOf(value.data.weight));

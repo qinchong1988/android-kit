@@ -21,7 +21,8 @@ class OkHttpHelper {
         Cache cache = new Cache(cacheFile, CACHE_MAX_SIZE);
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        return new OkHttpClient.Builder().addInterceptor(new CacheInterceptor())
+        return new OkHttpClient.Builder()
+                .addInterceptor(new CacheInterceptor())
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(logging)
                 .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS) // set timeout to 30 seconds.

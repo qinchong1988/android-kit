@@ -4,6 +4,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface APIService {
     String BASE_URL = "http://bianmei.istormcity.com";
@@ -17,5 +18,5 @@ public interface APIService {
     Observable<CreateUser.Resp> createUser(@Body CreateUser.Req user);
 
     @GET("/v1/weights")
-    Observable<WeightToday> weightToday();
+    Observable<WeightToday> weightToday(@Query("lastID") int lastID);
 }
