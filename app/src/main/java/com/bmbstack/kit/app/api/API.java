@@ -11,7 +11,7 @@ public enum API {
     private APIService mAPIService = null;
 
     API() {
-        APIHandler.addHttpInterceptor(401, new APIHandler.HttpInterceptor() {
+        APIHandler.addHttpErrorInterceptor(401, new APIHandler.HttpErrorInterceptor() {
             @Override
             public boolean intercept() {
                 AccountMgr.getInstance().logout();

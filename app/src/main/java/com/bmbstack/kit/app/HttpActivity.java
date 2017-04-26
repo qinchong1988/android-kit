@@ -98,7 +98,7 @@ public class HttpActivity extends BaseActivity {
             public void onClick(View view) {
 
                 //API test
-                API.INST.home(APIHandler.createObserver(HttpActivity.this, true, new APIHandler.APIObserver<Home.Resp>() {
+                API.INST.home(APIHandler.createObserver(HttpActivity.this, true, new APIHandler.OnResultCallback<Home.Resp>() {
                     @Override
                     public void onSuccess(Home.Resp value) {
                         tvHome.setText(value.data.title);
@@ -123,7 +123,7 @@ public class HttpActivity extends BaseActivity {
                 req.sex = 1;
                 req.city = "北京市";
                 //API test
-                API.INST.createUser(req, APIHandler.createObserver(HttpActivity.this, true, new APIHandler.APIObserver<CreateUser.Resp>() {
+                API.INST.createUser(req, APIHandler.createObserver(HttpActivity.this, true, new APIHandler.OnResultCallback<CreateUser.Resp>() {
                     @Override
                     public void onSuccess(CreateUser.Resp value) {
                         tvCreateUser.setText(value.data.token);
@@ -146,7 +146,7 @@ public class HttpActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //API test
-                API.INST.weightToday(APIHandler.createObserver(HttpActivity.this, false, new APIHandler.APIObserver<WeightToday>() {
+                API.INST.weightToday(APIHandler.createObserver(HttpActivity.this, false, new APIHandler.OnResultCallback<WeightToday>() {
                     @Override
                     public void onSuccess(WeightToday value) {
                         tvGetWeight.setText(String.valueOf(value.data.weight));

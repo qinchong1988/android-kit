@@ -29,8 +29,7 @@ public class TokenAuthenticator implements Authenticator {
         Logger.d("OkHttp", "refreshJWT=" + refreshJWT);
         if (refreshJWT != null && refreshJWT.trim().length() > 0) {
 
-            if (JWTHelper.getAuthorizationVal(refreshJWT)
-                    .equals(response.request().header(JWTHelper.AUTHORIZATION))) {
+            if (JWTHelper.getAuthorizationVal(refreshJWT).equals(response.request().header(JWTHelper.AUTHORIZATION))) {
                 return null;  // If we already failed with these jwt, don't retry.
             }
 

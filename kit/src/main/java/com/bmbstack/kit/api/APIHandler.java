@@ -18,26 +18,14 @@ import retrofit2.HttpException;
 
 public class APIHandler {
 
-    private static final String TAG = "ApiHandler";
+    private static final String TAG = "APIHandler";
+    private static final SparseArray<HttpErrorInterceptor> HTTP_ERROR_INTERCEPTORS = new SparseArray<>();
 
-    private static final SparseArray<HttpInterceptor> HTTP_INTERCEPTOR = new SparseArray<>();
-
-    public interface HttpInterceptor {
-        boolean intercept();
+    public static void addHttpErrorInterceptor(int code, HttpErrorInterceptor interceptor) {
+        HTTP_ERROR_INTERCEPTORS.put(code, interceptor);
     }
 
-    public static void addHttpInterceptor(int code, HttpInterceptor interceptor) {
-        HTTP_INTERCEPTOR.put(code, interceptor);
-    }
-
-    public interface APIObserver<T> {
-
-        void onSuccess(T value);
-
-        void onComplete();
-    }
-
-    public static <T> Observer<T> createObserver(final BmbPresenter bmbPresenter, final boolean showErrorView, final APIObserver<T> apiObserver) {
+    public static <T> Observer<T> createObserver(final BmbPresenter bmbPresenter, final boolean showErrorView, final OnResultCallback<T> onResultCallback) {
         return new Observer<T>() {
 
             @Override
@@ -53,7 +41,7 @@ public class APIHandler {
                 bmbPresenter.hideLoadingView();
                 BaseResponse response = ((BaseResponse) value);
                 if (response.isValid()) {
-                    apiObserver.onSuccess(value);
+                    onResultCallback.onSuccess(value);
                 }
             }
 
@@ -65,7 +53,7 @@ public class APIHandler {
                 bmbPresenter.hideLoadingView();
 
                 NetError error = getErrorFromException(e);
-                HttpInterceptor interceptor = HTTP_INTERCEPTOR.get(error.errorCode);
+                HttpErrorInterceptor interceptor = HTTP_ERROR_INTERCEPTORS.get(error.errorCode);
                 if (interceptor != null) {
                     if (interceptor.intercept()) {
                         return;
@@ -76,7 +64,7 @@ public class APIHandler {
                 } else {
                     ToastUtils.warning(error.errorMsg);
                 }
-                apiObserver.onComplete();
+                onResultCallback.onComplete();
             }
 
             @Override
@@ -84,11 +72,17 @@ public class APIHandler {
                 if (!bmbPresenter.isValid()) {
                     return;
                 }
-                apiObserver.onComplete();
+                onResultCallback.onComplete();
             }
         };
     }
 
+    /**
+     * 网络请求异常处理
+     *
+     * @param e Throwable
+     * @return NetError
+     */
     public static NetError getErrorFromException(Throwable e) {
         if (e != null) {
             e.printStackTrace();
@@ -115,5 +109,14 @@ public class APIHandler {
             error.errorMsg = BaseApplication.instance().getString(R.string.status_unknow_error);
         }
         return error;
+    }
+
+    public interface HttpErrorInterceptor {
+        boolean intercept();
+    }
+
+    public interface OnResultCallback<T> {
+        void onSuccess(T value);
+        void onComplete();
     }
 }
