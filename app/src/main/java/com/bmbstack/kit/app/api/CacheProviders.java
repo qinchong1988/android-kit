@@ -14,5 +14,5 @@ import io.rx_cache2.Reply;
 public interface CacheProviders {
 
     @LifeCache(duration = 5, timeUnit = TimeUnit.MINUTES)
-    Observable<Reply<WeightToday>> weightToday(Observable<WeightToday> weightToday, DynamicKey lastID, EvictDynamicKey evictPage);
+    Observable<WeightToday> weightToday(Observable<WeightToday> weightToday, DynamicKey lastID, EvictDynamicKey evictPage);
 }

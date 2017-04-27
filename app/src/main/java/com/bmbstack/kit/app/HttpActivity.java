@@ -149,7 +149,7 @@ public class HttpActivity extends BaseActivity {
             public void onClick(View view) {
                 //API test
                 int lastID = 100;
-                API.INST.weightToday(lastID, true, APIHandler.createObserver(HttpActivity.this, false, new APIHandler.OnResultCallback<WeightToday>() {
+                API.INST.weightToday(lastID, false, APIHandler.createObserver(HttpActivity.this, false, new APIHandler.OnResultCallback<WeightToday>() {
                     @Override
                     public void onSuccess(WeightToday value) {
                         tvGetWeight.setText(String.valueOf(value.data.weight));

@@ -42,5 +42,7 @@ public enum API {
                         new EvictDynamicKey(update)
                 ),
                 observer);
+
+//        BmbAPI.rx(mAPIService.weightToday(lastID), observer);
     }
 }

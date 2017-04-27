@@ -5,6 +5,7 @@ import android.util.SparseArray;
 import com.bmbstack.kit.R;
 import com.bmbstack.kit.app.BaseApplication;
 import com.bmbstack.kit.app.BmbPresenter;
+import com.bmbstack.kit.log.Logger;
 import com.bmbstack.kit.util.NetworkUtils;
 import com.bmbstack.kit.util.ToastUtils;
 import com.bmbstack.kit.widget.ErrorView;
@@ -14,6 +15,8 @@ import java.net.SocketTimeoutException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.exceptions.CompositeException;
+import io.rx_cache2.RxCacheException;
 import retrofit2.HttpException;
 
 public class APIHandler {
@@ -87,13 +90,29 @@ public class APIHandler {
         if (e != null) {
             e.printStackTrace();
         }
+
         NetError error = new NetError();
         if (!NetworkUtils.isConnected()) {
             error.errorMsg = BaseApplication.instance().getString(R.string.status_network_error);
             error.style = ErrorView.Style.ERROR_NETWORK;
             return error;
         }
-        if (e instanceof IllegalStateException || e instanceof JsonParseException) {
+
+
+        if (e instanceof CompositeException) {
+            CompositeException compositeException = (CompositeException) e;
+            for (Throwable t : compositeException.getExceptions()) {
+                if (t instanceof APIException) {
+                    APIException exception = (APIException) t;
+                    error.errorCode = exception.getCode();
+                    error.errorMsg = exception.getMsg();
+                }else if( t instanceof RxCacheException) {
+                    Logger.e(TAG, "API接口输出错误，RxCache不做缓存!");
+                }else {
+                    Logger.e(TAG, t.getClass().getSimpleName()+":"+t.getMessage());
+                }
+            }
+        }else if (e instanceof IllegalStateException || e instanceof JsonParseException) {
             error.errorMsg = BaseApplication.instance().getString(R.string.status_parse_error);
         } else if (e instanceof SocketTimeoutException) {
             error.errorMsg = BaseApplication.instance().getString(R.string.status_network_timeout);
