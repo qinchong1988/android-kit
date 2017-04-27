@@ -18,5 +18,5 @@ public interface APIService {
     Observable<CreateUser.Resp> createUser(@Body CreateUser.Req user);
 
     @GET("/v1/weights")
-    Observable<WeightToday> weightToday(@Query("lastID") int lastID);
+    Observable<WeightToday> weightToday();
 }

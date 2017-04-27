@@ -8,6 +8,7 @@ import com.bmbstack.kit.app.account.AccountMgr;
 import io.reactivex.Observer;
 import io.rx_cache2.DynamicKey;
 import io.rx_cache2.EvictDynamicKey;
+import io.rx_cache2.EvictProvider;
 
 public enum API {
     INST;
@@ -34,15 +35,13 @@ public enum API {
         BmbAPI.rx(mAPIService.createUser(req), observer);
     }
 
-    public void weightToday(int lastID, boolean update, Observer<WeightToday> observer) {
+    public void weightToday(Observer<WeightToday> observer) {
         BmbAPI.rx(
                 mCacheProviders.weightToday(
-                        mAPIService.weightToday(lastID),
-                        new DynamicKey(lastID),
-                        new EvictDynamicKey(update)
+                        mAPIService.weightToday(),
+                        new DynamicKey(0),
+                        new EvictProvider(true)
                 ),
                 observer);
-
-//        BmbAPI.rx(mAPIService.weightToday(lastID), observer);
     }
 }
