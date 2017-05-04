@@ -16,7 +16,6 @@ import java.net.SocketTimeoutException;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.CompositeException;
-import io.rx_cache2.RxCacheException;
 import retrofit2.HttpException;
 
 public class APIHandler {
@@ -106,13 +105,11 @@ public class APIHandler {
                     APIException exception = (APIException) t;
                     error.errorCode = exception.getCode();
                     error.errorMsg = exception.getMsg();
-                }else if( t instanceof RxCacheException) {
-                    Logger.e(TAG, "API接口输出错误，RxCache不做缓存!");
-                }else {
-                    Logger.e(TAG, t.getClass().getSimpleName()+":"+t.getMessage());
+                } else {
+                    Logger.e(TAG, t.getClass().getSimpleName() + ":" + t.getMessage());
                 }
             }
-        }else if (e instanceof IllegalStateException || e instanceof JsonParseException) {
+        } else if (e instanceof IllegalStateException || e instanceof JsonParseException) {
             error.errorMsg = BaseApplication.instance().getString(R.string.status_parse_error);
         } else if (e instanceof SocketTimeoutException) {
             error.errorMsg = BaseApplication.instance().getString(R.string.status_network_timeout);
@@ -136,6 +133,7 @@ public class APIHandler {
 
     public interface OnResultCallback<T> {
         void onSuccess(T value);
+
         void onComplete();
     }
 }

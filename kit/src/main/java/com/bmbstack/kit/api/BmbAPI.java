@@ -1,17 +1,11 @@
 package com.bmbstack.kit.api;
 
-import android.content.Context;
-
 import com.bmbstack.kit.api.convert.GsonConverterFactory;
-
-import java.io.File;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import io.rx_cache2.internal.RxCache;
-import io.victoralbertos.jolyglot.GsonSpeaker;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -75,24 +69,6 @@ public class BmbAPI {
                     .client(clientBuilder.build())
                     .build()
                     .create(apiServiceClass);
-        }
-    }
-
-    public static class CacheBuilder<T> {
-        Context context;
-        Class<T> cacheProvidersClass;
-
-        public CacheBuilder(Context context, Class<T> cacheProvidersClass) {
-            this.context = context;
-            this.cacheProvidersClass = cacheProvidersClass;
-        }
-
-        public T build() {
-            File cacheDir = this.context.getExternalCacheDir();
-            if (cacheDir == null) {
-                cacheDir = this.context.getCacheDir();
-            }
-            return new RxCache.Builder().persistence(cacheDir, new GsonSpeaker()).using(this.cacheProvidersClass);
         }
     }
 }
