@@ -21,5 +21,6 @@ public interface APIService {
     CacheCall<CreateUser.Resp> createUser(@Body CreateUser.Req user);
 
     @GET("/v1/weights")
+    @Cache(CacheMode.FIRST_CACHE_THEN_REQUEST)
     CacheCall<WeightToday> weightToday();
 }

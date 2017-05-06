@@ -1,85 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:orientation="vertical"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.bmbstack.kit.app.HttpActivity">
+    android:background="@color/white">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        android:text="http接口测试"/>
-
-    <Button
-        android:id="@+id/btHome"
-        android:text="home"
+    <LinearLayout
+        android:id="@+id/activity_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         />
-    <TextView
-        android:id="@+id/tvHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        android:text="空"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.bmbstack.kit.app.HttpActivity">
 
-    <Button
-        android:id="@+id/btHomeNoStore"
-        android:text="home_No_Store"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-    <TextView
-        android:id="@+id/tvHomeNoStore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        android:text="空"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="http接口测试"
+            android:textSize="22dp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btCreateUser"
-        android:text="creat_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-    <TextView
-        android:id="@+id/tvCreateUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        android:text="空"/>
+        <Button
+            android:id="@+id/btHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="home" />
 
-    <Button
-        android:id="@+id/btGetWeight"
-        android:text="get_weight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-    <TextView
-        android:id="@+id/tvGetWeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        android:text="空"/>
+        <TextView
+            android:id="@+id/tvHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="空"
+            android:textSize="22dp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btCreateUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="creat_user" />
 
+        <TextView
+            android:id="@+id/tvCreateUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="空"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btGetWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="get_weight" />
+
+        <TextView
+            android:id="@+id/tvGetWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="空"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

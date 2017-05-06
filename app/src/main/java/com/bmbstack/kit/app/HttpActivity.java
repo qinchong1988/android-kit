@@ -37,11 +37,6 @@ public class HttpActivity extends BaseActivity {
     @BindView(R.id.tvHome)
     TextView tvHome;
 
-    @BindView(R.id.btHomeNoStore)
-    Button btHomeNoStore;
-    @BindView(R.id.tvHomeNoStore)
-    TextView tvHomeNoStore;
-
     @BindView(R.id.btCreateUser)
     Button btCreateUser;
     @BindView(R.id.tvCreateUser)
@@ -133,7 +128,7 @@ public class HttpActivity extends BaseActivity {
                 API.INST.createUser(false, req, createCallback(HttpActivity.this, false, new APIHandler.OnResultCallback<CreateUser.Resp>() {
                     @Override
                     public void onSuccess(CreateUser.Resp value, boolean fromCache) {
-                        tvCreateUser.setText(value.data.token + "\n# fromCache=" + fromCache);
+                        tvCreateUser.setText(value.data.token.substring(0, 10) + "\n# fromCache=" + fromCache);
                         if (value.isValid()) {
                             value.data.user.setToken(value.data.token);
                             AccountMgr.getInstance().saveUser(value.data.user);
