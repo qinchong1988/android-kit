@@ -1,8 +1,7 @@
 package com.bmbstack.kit.api;
 
-import android.util.SparseArray;
-
 import com.bmbstack.kit.R;
+import com.bmbstack.kit.api.cache.Callback;
 import com.bmbstack.kit.app.BaseApplication;
 import com.bmbstack.kit.app.BmbPresenter;
 import com.bmbstack.kit.log.Logger;
@@ -13,51 +12,43 @@ import com.google.gson.JsonParseException;
 
 import java.net.SocketTimeoutException;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.CompositeException;
+import retrofit2.Call;
 import retrofit2.HttpException;
+import retrofit2.Response;
 
 public class APIHandler {
 
     private static final String TAG = "APIHandler";
-    private static final SparseArray<HttpErrorInterceptor> HTTP_ERROR_INTERCEPTORS = new SparseArray<>();
+    private static HttpErrorInterceptor httpErrorInterceptor;
 
-    public static void addHttpErrorInterceptor(int code, HttpErrorInterceptor interceptor) {
-        HTTP_ERROR_INTERCEPTORS.put(code, interceptor);
+    public static void setHttpErrorInterceptor(HttpErrorInterceptor interceptor) {
+        httpErrorInterceptor = interceptor;
     }
 
-    public static <T> Observer<T> createObserver(final BmbPresenter bmbPresenter, final boolean showErrorView, final OnResultCallback<T> onResultCallback) {
-        return new Observer<T>() {
+    public static <T> Callback<T> createCallback(final BmbPresenter bmbPresenter, final boolean showErrorView, final OnResultCallback<T> onResultCallback) {
+        return new Callback<T>() {
 
             @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(T value) {
+            public void onResponse(Call<T> call, Response<T> response, boolean fromCache) {
                 if (!bmbPresenter.isValid()) {
                     return;
                 }
                 bmbPresenter.hideLoadingView();
-                BaseResponse response = ((BaseResponse) value);
-                if (response.isValid()) {
-                    onResultCallback.onSuccess(value);
-                }
+                onResultCallback.onSuccess(response.body(), fromCache);
+                onResultCallback.onComplete();
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onFailure(Call<T> call, Throwable e) {
                 if (!bmbPresenter.isValid()) {
                     return;
                 }
                 bmbPresenter.hideLoadingView();
 
                 NetError error = getErrorFromException(e);
-                HttpErrorInterceptor interceptor = HTTP_ERROR_INTERCEPTORS.get(error.errorCode);
-                if (interceptor != null) {
-                    if (interceptor.intercept()) {
+                if (httpErrorInterceptor != null) {
+                    if (httpErrorInterceptor.intercept(error.errorCode)) {
                         return;
                     }
                 }
@@ -69,13 +60,6 @@ public class APIHandler {
                 onResultCallback.onComplete();
             }
 
-            @Override
-            public void onComplete() {
-                if (!bmbPresenter.isValid()) {
-                    return;
-                }
-                onResultCallback.onComplete();
-            }
         };
     }
 
@@ -96,7 +80,6 @@ public class APIHandler {
             error.style = ErrorView.Style.ERROR_NETWORK;
             return error;
         }
-
 
         if (e instanceof CompositeException) {
             CompositeException compositeException = (CompositeException) e;
@@ -128,11 +111,11 @@ public class APIHandler {
     }
 
     public interface HttpErrorInterceptor {
-        boolean intercept();
+        boolean intercept(int code);
     }
 
     public interface OnResultCallback<T> {
-        void onSuccess(T value);
+        void onSuccess(T value, boolean fromCache);
 
         void onComplete();
     }

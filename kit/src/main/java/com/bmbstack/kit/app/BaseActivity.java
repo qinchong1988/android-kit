@@ -15,7 +15,6 @@ import com.bmbstack.kit.widget.ErrorView;
 import com.bmbstack.kit.widget.LoadingView;
 import com.jaeger.library.StatusBarUtil;
 
-
 public abstract class BaseActivity extends AppCompatActivity implements BmbPresenter {
 
     private ActPresenter mDecorate = new ActPresenter(this);

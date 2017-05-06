@@ -1,25 +1,21 @@
 package com.bmbstack.kit.api;
 
-import com.bmbstack.kit.api.convert.GsonConverterFactory;
+import android.content.Context;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import com.bmbstack.kit.api.cache.BasicCaching;
+import com.bmbstack.kit.api.cache.CacheCallFactory;
+import com.bmbstack.kit.api.convert.GsonConverterFactory;
+import com.bmbstack.kit.app.BaseApplication;
+
+import java.io.File;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 public class BmbAPI {
 
     private BmbAPI() {
-    }
-
-    public static void rx(Observable<?> observable, Observer observer) {
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
     }
 
     public interface JWTGet {
@@ -42,12 +38,16 @@ public class BmbAPI {
         Class<T> apiServiceClass;
         OkHttpClient.Builder clientBuilder;
         PublicParamInterceptor publicParamInterceptor;
+        CacheCallFactory cacheCallFactory;
 
         public Builder(String baseUrl, Class<T> apiServiceClass) {
             this.baseUrl = baseUrl;
             this.apiServiceClass = apiServiceClass;
-            clientBuilder = OkHttpHelper.addComm();
+            clientBuilder = OkHttpHelper.create();
             publicParamInterceptor = new PublicParamInterceptor();
+
+            File file = BaseApplication.instance().getDir("retrofit_cache_call", Context.MODE_PRIVATE);
+            cacheCallFactory = new CacheCallFactory(new BasicCaching(file, 5 * 1024 * 1024, 50));
         }
 
         public Builder addInterceptor(Interceptor interceptor) {
@@ -64,7 +64,7 @@ public class BmbAPI {
 
         public T build() {
             return new Retrofit.Builder().baseUrl(baseUrl)
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addCallAdapterFactory(cacheCallFactory)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(clientBuilder.build())
                     .build()

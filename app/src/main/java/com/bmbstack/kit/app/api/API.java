@@ -2,38 +2,36 @@ package com.bmbstack.kit.app.api;
 
 import com.bmbstack.kit.api.APIHandler;
 import com.bmbstack.kit.api.BmbAPI;
+import com.bmbstack.kit.api.cache.Callback;
 import com.bmbstack.kit.app.account.AccountMgr;
-
-import io.reactivex.Observer;
 
 public enum API {
     INST;
     private APIService mAPIService = null;
 
     API() {
-        APIHandler.addHttpErrorInterceptor(401, new APIHandler.HttpErrorInterceptor() {
+        APIHandler.setHttpErrorInterceptor(new APIHandler.HttpErrorInterceptor() {
             @Override
-            public boolean intercept() {
-                AccountMgr.getInstance().logout();
-                return true;
+            public boolean intercept(int code) {
+                if (code == 401) {
+                    AccountMgr.getInstance().logout();
+                    return true;
+                }
+                return false;
             }
         });
         mAPIService = (APIService) new BmbAPI.Builder<>(APIService.BASE_URL, APIService.class).useJWT(new JWTGet()).build();
     }
 
-    public void home(Observer<Home.Resp> observer) {
-        BmbAPI.rx(mAPIService.home(), observer);
+    public void home(boolean careCache, Callback<Home.Resp> callback) {
+        mAPIService.home().enqueue(careCache, callback);
     }
 
-    public void home_NoStore(Observer<Home.Resp> observer) {
-        BmbAPI.rx(mAPIService.home_NoStore(), observer);
+    public void createUser(boolean careCache, CreateUser.Req req, Callback<CreateUser.Resp> callback) {
+        mAPIService.createUser(req).enqueue(careCache, callback);
     }
 
-    public void createUser(CreateUser.Req req, Observer<CreateUser.Resp> observer) {
-        BmbAPI.rx(mAPIService.createUser(req), observer);
-    }
-
-    public void weightToday(Observer<WeightToday> observer) {
-        BmbAPI.rx(mAPIService.weightToday(), observer);
+    public void weightToday(boolean careCache, Callback<WeightToday> callback) {
+        mAPIService.weightToday().enqueue(careCache, callback);
     }
 }
