@@ -1,8 +1,9 @@
-#android-kit
- 
+android-kit
+===========================
+
 ## retrofit cache:
 
-design for mobile app. use customize retrofit CallAdapterFactory.
+design for mobile app. use customize retrofit `CallAdapterFactory`.
 
 ```java
 public enum CacheMode {
@@ -14,7 +15,7 @@ public enum CacheMode {
 }
 ```
 
-cache have two layer Momery&disk.you can customize the cache key by implements CacheKeyFactory.
+cache have two layer Momery&disk.you can customize the cache key by implements `CacheKeyFactory`.
 
 ```java
  public interface CacheKeyFactory {
@@ -66,7 +67,7 @@ public enum API {
 }
 ```
 
-use @Cache active cache mode，then invoke CacheCall.enqueue(boolean careCache, Callback<T> callback) or CacheCall.enqueue(Callback<T> callback) will care cache, if you don't wan't use cache then you should invoke CacheCall.enqueue(false, Callback<T> callback).this can be useful when load page cache at page1 but not cache at page2.
+use `@Cache` active cache mode，then invoke `CacheCall.enqueue(boolean careCache, Callback<T> callback)` or `CacheCall.enqueue(Callback<T> callback)` will care cache, if you don't wan't use cache then you should invoke `CacheCall.enqueue(false, Callback<T> callback)`.this can be useful when load page cache at page1 but not cache at page2.
  
 thanks for there awesome project & blog.
 
