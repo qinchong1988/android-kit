@@ -22,6 +22,10 @@ public class App extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        mInstance = this;
+
+        Logger.v(TAG, "initInApp begin");
+        long st = SystemClock.uptimeMillis();
 
         // Umeng设置
         String umengChannelId = ChannelUtils.getChannel(this);
@@ -32,11 +36,7 @@ public class App extends BaseApplication {
                 SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE);
 
-        mInstance = this;
         AppEnv.DEBUG = BuildConfig.DEBUG;
-
-        Logger.v(TAG, "initInApp begin");
-        long st = SystemClock.uptimeMillis();
 
         Client.init(this);
         Client.requestChannel(ResourceUtils.getMetaDataValue(this, "BaiduMobAd_CHANNEL"));
