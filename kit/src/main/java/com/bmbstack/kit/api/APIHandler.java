@@ -57,6 +57,7 @@ public class APIHandler {
                 } else {
                     ToastUtils.warning(error.errorMsg);
                 }
+                onResultCallback.onFailure(error.errorCode, error.errorMsg);
                 onResultCallback.onComplete();
             }
 
@@ -116,7 +117,7 @@ public class APIHandler {
 
     public interface OnResultCallback<T> {
         void onSuccess(T value, boolean fromCache);
-
+        void onFailure(int errorCode, String errorMsg);
         void onComplete();
     }
 }
