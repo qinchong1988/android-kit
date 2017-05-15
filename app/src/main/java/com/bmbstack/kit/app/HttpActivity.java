@@ -107,6 +107,11 @@ public class HttpActivity extends BaseActivity {
                     }
 
                     @Override
+                    public void onFailure(int errorCode, String errorMsg) {
+
+                    }
+
+                    @Override
                     public void onComplete() {
                     }
                 }));
@@ -137,6 +142,11 @@ public class HttpActivity extends BaseActivity {
                     }
 
                     @Override
+                    public void onFailure(int errorCode, String errorMsg) {
+
+                    }
+
+                    @Override
                     public void onComplete() {
                     }
                 }));
@@ -152,6 +162,11 @@ public class HttpActivity extends BaseActivity {
                     @Override
                     public void onSuccess(WeightToday value, boolean fromCache) {
                         tvGetWeight.setText(String.valueOf(value.data.weight + "\n# fromCache=" + fromCache));
+                    }
+
+                    @Override
+                    public void onFailure(int errorCode, String errorMsg) {
+
                     }
 
                     @Override
