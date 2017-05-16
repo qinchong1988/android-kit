@@ -2,6 +2,8 @@ package com.bmbstack.kit.api.cache;
 
 import android.text.TextUtils;
 
+import com.bmbstack.kit.api.APIException;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
@@ -207,8 +209,15 @@ public class CacheCallFactory extends CallAdapter.Factory {
                             // for mobile app, we only care 200
                             if (response.isSuccessful()) {
                                 boolean ignore = false;
-                                byte[] rawData = CacheUtils.responseToBytes(retrofit, response.body(),
-                                        responseType(), methodAnnotations);
+                                byte[] rawData;
+                                try {
+                                    rawData = CacheUtils.responseToBytes(retrofit, response.body(),
+                                            responseType(), methodAnnotations);
+                                } catch (APIException e) {
+                                    e.printStackTrace();
+                                    callback.onFailure(baseCall, e);
+                                    return;
+                                }
 
                                 String netMd5 = CacheUtils.md5(rawData);
                                 if (TextUtils.equals(netMd5, finalCacheMd)) {

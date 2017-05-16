@@ -1,5 +1,6 @@
 package com.bmbstack.kit.api.cache;
 
+import com.bmbstack.kit.api.APIException;
 import com.bmbstack.kit.log.Logger;
 import com.google.common.hash.Hashing;
 
@@ -32,7 +33,7 @@ public final class CacheUtils {
      */
     @SuppressWarnings("unchecked")
     public static <T> byte[] responseToBytes(Retrofit retrofit, T data, Type dataType,
-                                             Annotation[] annotations) {
+                                             Annotation[] annotations) throws APIException {
         for (Converter.Factory factory : retrofit.converterFactories()) {
             if (factory == null) continue;
             Converter<T, RequestBody> converter =
