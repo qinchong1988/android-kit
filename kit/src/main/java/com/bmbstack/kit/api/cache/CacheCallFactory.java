@@ -11,6 +11,7 @@ import java.util.concurrent.Executor;
 import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
+import retrofit2.HttpException;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -203,8 +204,9 @@ public class CacheCallFactory extends CallAdapter.Factory {
                     Runnable responseRunnable = new Runnable() {
                         @Override
                         public void run() {
-                            boolean ignore = false;
+                            // for mobile app, we only care of 200
                             if (response.isSuccessful()) {
+                                boolean ignore = false;
                                 byte[] rawData = CacheUtils.responseToBytes(retrofit, response.body(),
                                         responseType(), methodAnnotations);
 
@@ -214,10 +216,13 @@ public class CacheCallFactory extends CallAdapter.Factory {
                                 } else {
                                     cachingSystem.addInCache(response, rawData);
                                 }
+                                if (!ignore) {
+                                    callback.onResponse(baseCall, response, false);
+                                }
+                            } else {
+                                callback.onFailure(baseCall, new HttpException(response));
                             }
-                            if (!ignore) {
-                                callback.onResponse(baseCall, response, false);
-                            }
+
                         }
                     };
                     // Run it on the proper thread
