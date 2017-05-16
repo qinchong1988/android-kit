@@ -15,10 +15,4 @@ public class NetError {
         return error;
     }
 
-    public static NetError createError(BaseResponse response) {
-        NetError error = new NetError();
-        error.errorCode = response.code;
-        error.errorMsg = response.msg;
-        return error;
-    }
 }

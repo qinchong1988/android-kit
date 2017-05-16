@@ -1,6 +1,6 @@
 package com.bmbstack.kit.app.api;
 
-import com.bmbstack.kit.api.BaseResponse;
+import com.bmbstack.kit.api.BmbResponse;
 import com.bmbstack.kit.app.dao.User;
 import com.google.gson.annotations.SerializedName;
 
@@ -29,7 +29,7 @@ public class CreateUser {
         public String city;
     }
 
-    public static class Resp extends BaseResponse {
+    public static class Resp extends BmbResponse {
         @SerializedName("data")
         public DataBean data;
 
