@@ -29,6 +29,8 @@ public class APIHandler {
     public static <T> Callback<T> createCallback(final BmbPresenter bmbPresenter, final boolean showErrorView, final OnResultCallback<T> onResultCallback) {
         return new Callback<T>() {
 
+            boolean useCache = false;
+
             @Override
             public void onResponse(Call<T> call, Response<T> response, boolean fromCache) {
                 if (!bmbPresenter.isValid()) {
@@ -36,6 +38,7 @@ public class APIHandler {
                 }
                 bmbPresenter.hideLoadingView();
                 onResultCallback.onSuccess(response.body(), fromCache);
+                useCache = fromCache;
                 onResultCallback.onComplete();
             }
 
@@ -52,7 +55,7 @@ public class APIHandler {
                         return;
                     }
                 }
-                if (showErrorView) {
+                if (showErrorView && !useCache) {
                     bmbPresenter.showErrorView(error.errorMsg, error.style);
                 } else {
                     ToastUtils.warning(error.errorMsg);

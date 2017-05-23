@@ -14,7 +14,6 @@ public interface CacheKeyFactory {
             StringBuilder sb = new StringBuilder();
             sb.append(request.method()).append(" ");
             sb.append(request.url()).append("\n");
-            sb.append(request.headers().toString());
             String key = sb.toString();
             Logger.v(CacheUtils.LOG_TAG, "key=> " + key);
             return CacheUtils.hashKey(key);
