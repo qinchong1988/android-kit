@@ -121,11 +121,16 @@ public class CacheCallFactory extends CallAdapter.Factory {
 
                     if (cacheMode == CacheMode.IF_NONE_CACHE_REQUEST ||
                             cacheMode == CacheMode.FIRST_CACHE_THEN_REQUEST) {
-                        ReadFromCache readFromCache = new ReadFromCache(callback).call();
-                        if (cacheMode == CacheMode.IF_NONE_CACHE_REQUEST && readFromCache.haveCache()) {
+                        ReadFromCache readFromCache = null;
+                        try {
+                            readFromCache = new ReadFromCache(callback).call();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (cacheMode == CacheMode.IF_NONE_CACHE_REQUEST && readFromCache != null && readFromCache.haveCache()) {
                             return;
                         }
-                        readFromNet(readFromCache.getCacheMd5(), callback);
+                        readFromNet(readFromCache != null ? readFromCache.getCacheMd5() : null, callback);
                     }
                 }
             };
@@ -279,7 +284,7 @@ public class CacheCallFactory extends CallAdapter.Factory {
                 return haveCache;
             }
 
-            public ReadFromCache call() {
+            public ReadFromCache call() throws APIException {
                 byte[] data = cachingSystem.getFromCache(buildRequest());
                 if (data != null) {
                     final T convertedData = CacheUtils.bytesToResponse(retrofit, responseType, methodAnnotations,

@@ -53,7 +53,7 @@ public final class CacheUtils {
 
     @SuppressWarnings("unchecked")
     public static <T> T bytesToResponse(Retrofit retrofit, Type dataType, Annotation[] annotations,
-                                        byte[] data) {
+                                        byte[] data) throws APIException {
         for (Converter.Factory factory : retrofit.converterFactories()) {
             if (factory == null) continue;
             Converter<ResponseBody, T> converter =
