@@ -1,8 +1,6 @@
 package com.bmbstack.kit.util;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
 
@@ -56,9 +54,4 @@ public class ToastUtils {
     Toasty.normal(BaseApplication.instance(), text, icon).show();
   }
 
-  public static void custom(@NonNull String message, Drawable icon, @ColorInt int textColor,
-      @ColorInt int tintColor, int duration, boolean withIcon, boolean shouldTint) {
-    Toasty.custom(BaseApplication.instance(), message, icon, textColor, tintColor, duration,
-        withIcon, shouldTint).show();
-  }
 }
