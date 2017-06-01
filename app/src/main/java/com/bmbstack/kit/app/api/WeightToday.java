@@ -6,6 +6,5 @@ import com.google.gson.annotations.SerializedName;
 
 public class WeightToday extends BmbResponse {
     @SerializedName("data")
-    @Expose(deserialize = false, serialize = false)
     public WeightBean data;
 }
