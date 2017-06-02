@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#FF4081</color>
-  <color name="colorPrimaryDark">#D22D66</color>
-  <color name="colorAccent">#FF4081</color>
+  <color name="colorPrimary">#FC7382</color>
+  <color name="colorPrimaryDark">#FC7382</color>
+  <color name="colorAccent">#FC7382</color>
   <!-- 定义一些常用的颜色值-->
   <color name="load_error">#7b7b7b</color>
   <color name="transparent">#00000000</color>

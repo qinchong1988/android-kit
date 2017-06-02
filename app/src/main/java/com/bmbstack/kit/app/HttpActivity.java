@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.bmbstack.kit.api.APIHandler;
 import com.bmbstack.kit.app.account.AccountMgr;
 import com.bmbstack.kit.app.api.API;
@@ -15,7 +17,6 @@ import com.bmbstack.kit.app.api.CreateUser;
 import com.bmbstack.kit.app.api.Home;
 import com.bmbstack.kit.app.api.WeightToday;
 import com.bmbstack.kit.app.storage.CommonTraySp;
-import com.bmbstack.kit.util.SizeUtils;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrListener;
@@ -57,6 +58,7 @@ public class HttpActivity extends BaseActivity {
         setContentView(R.layout.activity_http);
 
         ButterKnife.bind(this);
+        setContentViewGroup((ViewGroup) getWindow().getDecorView());
 
         // Build the slidr config
         int primary = getResources().getColor(R.color.colorPrimaryDark);
@@ -100,21 +102,28 @@ public class HttpActivity extends BaseActivity {
             public void onClick(View view) {
 
                 //API test
-                API.INST.home(true, createCallback(HttpActivity.this, false, new APIHandler.OnResultCallback<Home.Resp>() {
+                showLoadingView();
+                tvHome.postDelayed(new Runnable() {
                     @Override
-                    public void onSuccess(Home.Resp value, boolean fromCache) {
-                        tvHome.setText(value.data.title + "\n# fromCache=" + fromCache);
-                    }
+                    public void run() {
+                        API.INST.home(true, createCallback(HttpActivity.this, false, new APIHandler.OnResultCallback<Home.Resp>() {
+                            @Override
+                            public void onSuccess(Home.Resp value, boolean fromCache) {
+                                tvHome.setText(value.data.title + "\n# fromCache=" + fromCache);
+                            }
 
-                    @Override
-                    public void onFailure(int errorCode, String errorMsg) {
+                            @Override
+                            public void onFailure(int errorCode, String errorMsg) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onComplete() {
+                            @Override
+                            public void onComplete() {
+                            }
+                        }));
                     }
-                }));
+                }, 3000);
+
             }
         });
 

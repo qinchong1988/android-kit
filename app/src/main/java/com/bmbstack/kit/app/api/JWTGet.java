@@ -1,11 +1,11 @@
 package com.bmbstack.kit.app.api;
 
+import com.blankj.utilcode.util.EmptyUtils;
 import com.bmbstack.kit.api.BmbAPI;
 import com.bmbstack.kit.api.convert.GsonRequestBodyConverter;
 import com.bmbstack.kit.app.account.AccountMgr;
 import com.bmbstack.kit.app.storage.CommonTraySp;
 import com.bmbstack.kit.log.Logger;
-import com.bmbstack.kit.util.EmptyUtils;
 import com.bmbstack.kit.util.GsonUtils;
 
 import okhttp3.OkHttpClient;

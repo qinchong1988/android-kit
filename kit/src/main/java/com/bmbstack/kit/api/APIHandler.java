@@ -1,11 +1,11 @@
 package com.bmbstack.kit.api;
 
+import com.blankj.utilcode.util.NetworkUtils;
 import com.bmbstack.kit.R;
 import com.bmbstack.kit.api.cache.Callback;
 import com.bmbstack.kit.app.BaseApplication;
 import com.bmbstack.kit.app.BmbPresenter;
 import com.bmbstack.kit.log.Logger;
-import com.bmbstack.kit.util.NetworkUtils;
 import com.bmbstack.kit.util.ToastUtils;
 import com.bmbstack.kit.widget.ErrorView;
 import com.google.gson.JsonParseException;

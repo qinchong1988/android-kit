@@ -59,7 +59,7 @@ public class SystemUtils {
 
   public static String getEmid(Context context) {
     String ret = getIMEI(context);
-    if (StringUtils.isEmpty(ret)) {
+    if (TextUtils.isEmpty(ret)) {
       ret = getLocalMacAddress(context);
     }
     return (ret == null) ? "" : ret;

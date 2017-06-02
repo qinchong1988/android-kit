@@ -114,3 +114,7 @@ public static final ** CREATOR;
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+
+# https://github.com/81813780/AVLoadingIndicatorView
+-keep class com.wang.avi.** { *; }
+-keep class com.wang.avi.indicators.** { *; }
