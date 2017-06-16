@@ -2,7 +2,6 @@ package com.bmbstack.kit.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,11 +11,9 @@ import android.widget.Toast;
 import com.bmbstack.kit.umeng.AuthCallback;
 import com.bmbstack.kit.umeng.QQInfo;
 import com.bmbstack.kit.umeng.ShareCallback;
-import com.bmbstack.kit.umeng.SinaInfo;
 import com.bmbstack.kit.umeng.UmengUtils;
 import com.bmbstack.kit.umeng.WeixinInfo;
 import com.bmbstack.kit.util.ChannelUtils;
-import com.r0adkll.slidr.Slidr;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import butterknife.BindView;
