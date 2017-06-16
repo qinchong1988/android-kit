@@ -1,13 +1,12 @@
 package com.bmbstack.kit.app.dao;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Keep;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.Keep;
 
 @Entity
 public class User {
-    @Id
+    @PrimaryKey
     private String userID;
     private String username;
     private String headPhoto;
@@ -20,24 +19,6 @@ public class User {
     private int cid;
     private String token;
 
-    @Generated(hash = 1467477203)
-    public User(String userID, String username, String headPhoto, int sex, int height,
-                double weightStart, double weightCurrent, double weightTarget, int pid, int cid,
-                String token) {
-        this.userID = userID;
-        this.username = username;
-        this.headPhoto = headPhoto;
-        this.sex = sex;
-        this.height = height;
-        this.weightStart = weightStart;
-        this.weightCurrent = weightCurrent;
-        this.weightTarget = weightTarget;
-        this.pid = pid;
-        this.cid = cid;
-        this.token = token;
-    }
-
-    @Generated(hash = 586692638)
     public User() {
     }
 

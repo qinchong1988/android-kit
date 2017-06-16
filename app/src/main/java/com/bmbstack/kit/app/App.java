@@ -47,7 +47,7 @@ public class App extends BaseApplication {
             Stetho.initializeWithDefaults(this);
         }
 
-        DBManager.INST.init(this);
+        DBManager.INST.initDb(this);
 
         Logger.v(TAG, "initInApp end cost = " + (SystemClock.uptimeMillis() - st) + " ms");
     }

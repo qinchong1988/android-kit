@@ -10,12 +10,14 @@ import android.widget.TextView;
 import com.bmbstack.kit.R;
 import com.bmbstack.kit.proguard.IKeepPublicFieldName;
 import com.bmbstack.kit.proguard.IKeepPublicMethodName;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class LoadingView extends RelativeLayout
         implements IKeepPublicFieldName, IKeepPublicMethodName {
 
     private TextView mLoadingMsgView;
     private String mLoadingMsg;
+    private AVLoadingIndicatorView avi;
 
     public LoadingView(Context context) {
         super(context);
@@ -34,6 +36,7 @@ public class LoadingView extends RelativeLayout
 
     private void setupViews() {
         inflate(getContext(), R.layout.loading_view, this);
+        avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
         mLoadingMsgView = (TextView) findViewById(R.id.loading_msg);
         mLoadingMsg = getResources().getString(R.string.loading_view_isLoading);
     }
